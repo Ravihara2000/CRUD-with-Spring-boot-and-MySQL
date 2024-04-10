@@ -29,9 +29,10 @@ public class CustomerController {
 
     }
     @GetMapping(path = "/get-by-id",params = "id")
-    public CustomerDto getCustomerById(int customerId){
+    public CustomerDto getCustomerById(@RequestParam(value = "id") int customerId){
+        CustomerDto customerDto = customerService.getCustomerById(customerId);
 
-        return null;
+        return customerDto;
     }
 
 }

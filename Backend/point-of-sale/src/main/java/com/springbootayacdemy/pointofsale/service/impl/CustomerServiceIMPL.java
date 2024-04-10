@@ -46,5 +46,26 @@ private CustomerRepo customerRepo;
             throw new RuntimeException("no data exception");
         }
     }
+
+    @Override
+    public CustomerDto getCustomerById(int customerId) {
+        if(customerRepo.existsById(customerId)){
+            Customer customer=customerRepo.getReferenceById(customerId);
+            CustomerDto customerDto = new CustomerDto(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getSalary(),
+                    customer.getContactNumber(),
+                    customer.getNic(),
+                    customer.isActive()
+            );
+            return customerDto;
+
+        }else {
+            throw new RuntimeException("no customer");
+        }
+
+    }
 }
 
