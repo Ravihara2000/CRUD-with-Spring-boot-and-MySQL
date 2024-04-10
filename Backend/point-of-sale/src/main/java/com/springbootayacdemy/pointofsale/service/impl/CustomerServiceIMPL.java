@@ -94,5 +94,16 @@ private CustomerRepo customerRepo;
         }
         return customerDtoList;
     }
+
+    @Override
+    public String deleteCustomer(int customerId) {
+        if(customerRepo.existsById(customerId)){
+            customerRepo.deleteById(customerId);
+            return "deleted successfully "+customerId;
+        }else {
+            throw new RuntimeException("no id found");
+        }
+
+    }
 }
 
