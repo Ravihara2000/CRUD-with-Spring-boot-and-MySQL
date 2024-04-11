@@ -37,11 +37,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<!--		<dependency>
-			<groupId>com.thoughtworks.qdox</groupId>
-			<artifactId>qdox</artifactId>
-			<version>2.0.3</version>
-		</dependency>-->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -64,20 +59,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-<!--		&lt;!&ndash; Hibernate Types &ndash;&gt;
-		<dependency>
-			<groupId>com.vladmihalcea</groupId>
-			<artifactId>hibernate-types-5</artifactId>
-			<version>2.16.2</version> &lt;!&ndash; Replace with compatible version &ndash;&gt;
-		</dependency>-->
-
-		<!-- Hibernate Core -->
-<!--		<dependency>
-			<groupId>org.hibernate.orm</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>6.3.1.Final</version> &lt;!&ndash; Replace with compatible version &ndash;&gt;
-		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>

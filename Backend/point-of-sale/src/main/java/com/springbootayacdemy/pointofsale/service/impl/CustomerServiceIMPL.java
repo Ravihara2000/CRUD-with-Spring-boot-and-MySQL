@@ -14,20 +14,20 @@ import java.util.List;
 import static java.awt.AWTEventMulticaster.add;
 
 @Service
-public class CustomerServiceIMPL implements CustomerService{
-@Autowired
-private CustomerRepo customerRepo;
+public class CustomerServiceIMPL implements CustomerService {
+    @Autowired
+    private CustomerRepo customerRepo;
 
     @Override
     public String saveCustomer(CustomerDto customerDto) {
-        Customer customer =new Customer(
-        customerDto.getCustomerId(),
-        customerDto.getCustomerName(),
-        customerDto.getCustomerAddress(),
-        customerDto.getSalary(),
-        customerDto.getContactNumber(),
-        customerDto.getNic(),
-        customerDto.isActive()
+        Customer customer = new Customer(
+                customerDto.getCustomerId(),
+                customerDto.getCustomerName(),
+                customerDto.getCustomerAddress(),
+                customerDto.getSalary(),
+                customerDto.getContactNumber(),
+                customerDto.getNic(),
+                customerDto.isActive()
         );
 
         customerRepo.save(customer);
@@ -37,7 +37,7 @@ private CustomerRepo customerRepo;
 
     @Override
     public String updateCustomer(CustomerUpdateDto customerUpdateDto) {
-        if(customerRepo.existsById(customerUpdateDto.getCustomerId())){
+        if (customerRepo.existsById(customerUpdateDto.getCustomerId())) {
             Customer customer = customerRepo.getReferenceById(customerUpdateDto.getCustomerId());
             customer.setCustomerName(customerUpdateDto.getCustomerName());
             customer.setCustomerAddress(customerUpdateDto.getCustomerAddress());
@@ -45,17 +45,17 @@ private CustomerRepo customerRepo;
 
 
             customerRepo.save(customer);
-            return customerUpdateDto.getCustomerName()+" updated successfully";
+            return customerUpdateDto.getCustomerName() + " updated successfully";
 
-        }else {
+        } else {
             throw new RuntimeException("no data exception");
         }
     }
 
     @Override
     public CustomerDto getCustomerById(int customerId) {
-        if(customerRepo.existsById(customerId)){
-            Customer customer=customerRepo.getReferenceById(customerId);
+        if (customerRepo.existsById(customerId)) {
+            Customer customer = customerRepo.getReferenceById(customerId);
             CustomerDto customerDto = new CustomerDto(
                     customer.getCustomerId(),
                     customer.getCustomerName(),
@@ -67,7 +67,7 @@ private CustomerRepo customerRepo;
             );
             return customerDto;
 
-        }else {
+        } else {
             throw new RuntimeException("no customer");
         }
 
@@ -76,10 +76,10 @@ private CustomerRepo customerRepo;
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<Customer> getAllCustomers = customerRepo.findAll();
-        List<CustomerDto> customerDtoList =new ArrayList<>();
+        List<CustomerDto> customerDtoList = new ArrayList<>();
 
-        for(Customer customer:getAllCustomers){
-            CustomerDto customerDto= new CustomerDto(
+        for (Customer customer : getAllCustomers) {
+            CustomerDto customerDto = new CustomerDto(
                     customer.getCustomerId(),
                     customer.getCustomerName(),
                     customer.getCustomerAddress(),
@@ -97,13 +97,36 @@ private CustomerRepo customerRepo;
 
     @Override
     public String deleteCustomer(int customerId) {
-        if(customerRepo.existsById(customerId)){
+        if (customerRepo.existsById(customerId)) {
             customerRepo.deleteById(customerId);
-            return "deleted successfully "+customerId;
-        }else {
+            return "deleted successfully " + customerId;
+        } else {
             throw new RuntimeException("no id found");
         }
 
     }
+
+    @Override
+    public List<CustomerDto> getAllCustomersByActiveState(boolean activeState) {
+        List<Customer> getAllCustomers = customerRepo.findAllByActiveEquals(activeState);
+        List<CustomerDto> customerDtoList = new ArrayList<>();
+
+        for (Customer customer : getAllCustomers) {
+            CustomerDto customerDto = new CustomerDto(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getSalary(),
+                    customer.getContactNumber(),
+                    customer.getNic(),
+                    customer.isActive()
+            );
+
+            customerDtoList.add(customerDto);
+
+        }
+        return customerDtoList;
+    }
+
 }
 
