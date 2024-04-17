@@ -11,4 +11,6 @@ public interface ItemService {
     String saveItem(ItemSaveRequestDto itemSaveRequestDto);
 
     List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName);
+
+    List<ItemGetResponseDTO> getItemByNameAndStatusByMapstruct(String itemName);
 }

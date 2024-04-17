@@ -28,5 +28,11 @@ public class ItemController {
         return itemDTOS;
     }
 
+    @GetMapping(path = "/get-by-name-with-mapstruct",params = "name")
+    public List<ItemGetResponseDTO> getItemByNameAndStatusByMapstruct(@RequestParam(value = "name")String itemName){
+        List<ItemGetResponseDTO> itemDTOS = itemService.getItemByNameAndStatusByMapstruct(itemName);
+        return itemDTOS;
+    }
+
 }
 
