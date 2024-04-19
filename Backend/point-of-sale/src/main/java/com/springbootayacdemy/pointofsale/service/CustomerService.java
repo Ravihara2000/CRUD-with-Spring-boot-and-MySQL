@@ -19,4 +19,8 @@ public interface CustomerService {
     String deleteCustomer(int customerId);
 
     List<CustomerDto> getAllCustomersByActiveState(boolean activeState);
+
+    List<CustomerDto> getCustomersByName(String customerName);
+
+    List<CustomerDto> getCustomersByAddress(String customerAddress);
 }

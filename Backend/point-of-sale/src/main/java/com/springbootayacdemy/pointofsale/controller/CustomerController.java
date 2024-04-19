@@ -77,5 +77,16 @@ public class CustomerController {
         List<CustomerDto> allCustomers = customerService.getAllCustomersByActiveState(activeState);
         return allCustomers;
     }
+    @GetMapping(path = "get-customer-by-name",params = "name")
+    public List<CustomerDto> getCustomersByName(@RequestParam(value = "name")String customerName){
+        List <CustomerDto> customerByName=customerService.getCustomersByName(customerName);
+        return customerByName;
+    }
+
+    @GetMapping(path = "get-customer-by-address",params = "address")
+    public List<CustomerDto> getCustomersByAddress(@RequestParam(value = "address")String customerAddress){
+        List <CustomerDto> customerByAddress=customerService.getCustomersByAddress(customerAddress);
+        return customerByAddress;
+    }
 
 }

@@ -133,5 +133,55 @@ public class CustomerServiceIMPL implements CustomerService {
         return customerDtoList;
     }
 
+    @Override
+    public List<CustomerDto> getCustomersByName(String customerName) {
+        List<Customer> getCustomerByName =customerRepo.findCustomerByCustomerName(customerName);
+        if (getCustomerByName.size() > 0) {
+            List<CustomerDto> customerDtoList = new ArrayList<>();
+
+            for (Customer customer : getCustomerByName) {
+                CustomerDto customerDto = new CustomerDto(
+                        customer.getCustomerId(),
+                        customer.getCustomerName(),
+                        customer.getCustomerAddress(),
+                        customer.getSalary(),
+                        customer.getContactNumber(),
+                        customer.getNic(),
+                        customer.isActive()
+                );
+                customerDtoList.add(customerDto);
+            }
+
+            return customerDtoList;
+        }else {
+            throw new RuntimeException("No customers");
+        }
+    }
+
+    @Override
+    public List<CustomerDto> getCustomersByAddress(String customerAddress) {
+        List<Customer> getCustomerByAddress =customerRepo.getAllByCustomerAddress(customerAddress);
+        if (getCustomerByAddress.size() > 0) {
+            List<CustomerDto> customerDtoList = new ArrayList<>();
+
+            for (Customer customer : getCustomerByAddress) {
+                CustomerDto customerDto = new CustomerDto(
+                        customer.getCustomerId(),
+                        customer.getCustomerName(),
+                        customer.getCustomerAddress(),
+                        customer.getSalary(),
+                        customer.getContactNumber(),
+                        customer.getNic(),
+                        customer.isActive()
+                );
+                customerDtoList.add(customerDto);
+            }
+
+            return customerDtoList;
+        }else {
+            throw new RuntimeException("No customers");
+        }
+    }
+
 }
 
