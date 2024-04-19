@@ -3,6 +3,7 @@ package com.springbootayacdemy.pointofsale.util.mappers;
 import com.springbootayacdemy.pointofsale.dto.response.ItemGetResponseDTO;
 import com.springbootayacdemy.pointofsale.entity.Item;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,4 +13,6 @@ import java.util.List;
 public interface ItemMapper {
     //itemList ----> ItemResponseDto
     List<ItemGetResponseDTO> entityListToDtoList( List<Item> items);
+
+    List<ItemGetResponseDTO> ListDtoToPage(Page<Item> items);
 }
