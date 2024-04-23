@@ -1,16 +1,22 @@
 package com.springbootayacdemy.pointofsale.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 
 @Entity
 @Table(name="customers")
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class Customer {
     @Id
     @Column(name="customer_id",length =45)
@@ -35,85 +41,8 @@ public class Customer {
     @Column(name="active_status",columnDefinition = "TINYINT default 1")
     private boolean active;
 
-    public Customer(int customerId, String customerName, String customerAddress, double salary, int contactNumber, String nic, boolean active) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.salary = salary;
-        this.contactNumber = contactNumber;
-        this.nic = nic;
-        this.active = active;
-    }
+    @OneToMany(mappedBy = "customers")
+    private Set<Order> orders;
 
-    public Customer() {
-    }
 
-    public int getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerAddress() {
-        return customerAddress;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    public double getSalary() {
-        return salary;
-    }
-
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
-
-    public int getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(int contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getNic() {
-        return nic;
-    }
-
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", customerAddress='" + customerAddress + '\'' +
-                ", salary=" + salary +
-                ", contactNumber=" + contactNumber +
-                ", nic='" + nic + '\'' +
-                ", active=" + active +
-                '}';
-    }
 }
