@@ -33,30 +33,32 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ItemMapper itemMapper;
+
     @Override
     public String saveItem(ItemSaveRequestDto itemSaveRequestDto) {
 
-       Item item = modelMapper.map(itemSaveRequestDto,Item.class);
-        if(!itemRepo.existsById(item.getItemId())){
+        Item item = modelMapper.map(itemSaveRequestDto, Item.class);
+        if (!itemRepo.existsById(item.getItemId())) {
             itemRepo.save(item);
-            return item.getItemName()+" saved successfully";
-        }else{
+            return item.getItemName() + " saved successfully";
+        } else {
             throw new DuplicateKeyException("Already added");
         }
+
 
     }
 
     @Override
     public List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName) {
-        boolean b =true;
+        boolean b = true;
 
 
-        List<Item> items = itemRepo.findAllByItemNameEqualsAndActiveStateEquals(itemName,b);
-        if(items.size()>0){
-            List<ItemGetResponseDTO>itemGetResponseDTOS = itemMapper.entityListToDtoList(items);
+        List<Item> items = itemRepo.findAllByItemNameEqualsAndActiveStateEquals(itemName, b);
+        if (items.size() > 0) {
+            List<ItemGetResponseDTO> itemGetResponseDTOS = itemMapper.entityListToDtoList(items);
 
             return itemGetResponseDTOS;
-        }else {
+        } else {
             throw new RuntimeException("not active");
         }
 
@@ -64,17 +66,18 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<ItemGetResponseDTO> getItemByNameAndStatusByMapstruct(String itemName) {
-        boolean b =true;
+        boolean b = true;
 
 
-        List<Item> items = itemRepo.findAllByItemNameEqualsAndActiveStateEquals(itemName,b);
-        if(items.size()>0){
+        List<Item> items = itemRepo.findAllByItemNameEqualsAndActiveStateEquals(itemName, b);
+        if (items.size() > 0) {
             //convert a list
             //type token in java
             //map a list using model mapper
-            List<ItemGetResponseDTO>itemGetResponseDTOS = modelMapper.map(items,new TypeToken<List<ItemGetResponseDTO>>(){}.getType() );
+            List<ItemGetResponseDTO> itemGetResponseDTOS = modelMapper.map(items, new TypeToken<List<ItemGetResponseDTO>>() {
+            }.getType());
             return itemGetResponseDTOS;
-        }else {
+        } else {
             throw new RuntimeException("not active");
         }
     }
@@ -86,9 +89,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
-        Page<Item> items = itemRepo.findAllByActiveStateEquals(activeStatus, PageRequest.of(page,size));
-        int count=itemRepo.countAllByActiveStateEquals(activeStatus);
-        if(items.getSize()<1){
+        Page<Item> items = itemRepo.findAllByActiveStateEquals(activeStatus, PageRequest.of(page, size));
+        int count = itemRepo.countAllByActiveStateEquals(activeStatus);
+        if (items.getSize() < 1) {
             throw new NotFoundException("No Data");
         }
         PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(

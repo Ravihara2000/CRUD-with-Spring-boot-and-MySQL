@@ -3,10 +3,13 @@ package com.springbootayacdemy.pointofsale.service.impl;
 import com.springbootayacdemy.pointofsale.dto.CustomerDto;
 import com.springbootayacdemy.pointofsale.dto.request.CustomerUpdateDto;
 import com.springbootayacdemy.pointofsale.entity.Customer;
+import com.springbootayacdemy.pointofsale.entity.Item;
 import com.springbootayacdemy.pointofsale.exceptions.NotFoundException;
 import com.springbootayacdemy.pointofsale.repo.CustomerRepo;
 import com.springbootayacdemy.pointofsale.service.CustomerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,9 +22,12 @@ public class CustomerServiceIMPL implements CustomerService {
     @Autowired
     private CustomerRepo customerRepo;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
     public String saveCustomer(CustomerDto customerDto) {
-        Customer customer = new Customer(
+/*        Customer customer = new Customer(
                 customerDto.getCustomerId(),
                 customerDto.getCustomerName(),
                 customerDto.getCustomerAddress(),
@@ -33,9 +39,16 @@ public class CustomerServiceIMPL implements CustomerService {
 
         customerRepo.save(customer);
 
-        return customerDto.getCustomerName();
-    }
+        return customerDto.getCustomerName();*/
+        Customer customer = modelMapper.map(customerDto,Customer.class);
+        if(!customerRepo.existsById(customer.getCustomerId())) {
+            customerRepo.save(customer);
+            return customer.getCustomerName()+" saved successfully";
+        }else {
+            throw new DuplicateKeyException("Already added");
+        }
 
+    }
     @Override
     public String updateCustomer(CustomerUpdateDto customerUpdateDto) {
         if (customerRepo.existsById(customerUpdateDto.getCustomerId())) {
