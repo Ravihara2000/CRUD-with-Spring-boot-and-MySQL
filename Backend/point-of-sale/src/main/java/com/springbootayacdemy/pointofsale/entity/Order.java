@@ -13,9 +13,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-@TypeDefs(
-        @TypeDef(name = "json",typeClass = JsonType.class)
-)
+@TypeDefs({
+        @TypeDef(name = "json", typeClass = JsonType.class)
+})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -37,5 +37,12 @@ public class  Order {
 
     @OneToMany(mappedBy = "orders")
     private Set<OrderDetails> orderDetails;
-    //1.23
+    //1.2 3
+
+
+    public Order(Customer customers, Date date, Double total) {
+        this.customers = customers;
+        this.date = date;
+        this.total = total;
+    }
 }

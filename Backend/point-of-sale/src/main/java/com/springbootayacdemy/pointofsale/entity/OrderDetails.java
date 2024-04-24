@@ -11,16 +11,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "order_details ")
-@TypeDefs(
-        @TypeDef(name = "json",typeClass = JsonType.class)
-)
+@TypeDefs({
+        @TypeDef(name = "json", typeClass = JsonType.class)
+})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 
 public class OrderDetails {
     @Id
-    @Column(name="order_detail_id",length = 45)
+    @Column(name="order_details_id",length = 45)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int orderDetailsId;
 
