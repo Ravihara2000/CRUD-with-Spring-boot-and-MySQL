@@ -35,6 +35,9 @@ public class  Order {
     @Column(name = "total",nullable = false)
     private Double total;
 
+    @Column(name="active_state",columnDefinition = "TINYINT default 0")
+    private boolean activeState;
+
     @OneToMany(mappedBy = "orders")
     private Set<OrderDetails> orderDetails;
     //1.2 3
